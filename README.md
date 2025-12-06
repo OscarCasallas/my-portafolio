@@ -3,7 +3,7 @@
 Welcome to my portfolio repository! This project showcases my work as a **Stack Developer** and highlights my projects, skills, and professional achievements.
 
 ## 🖥️ Live Portfolio  
-Check out the live version here: [**Oscar Casallas Portfolio**](https://xxx-xxx.vercel.app/)
+Check out the live version here: [**Oscar Casallas Portfolio**](https://portafolio-oscarcasallas.vercel.app/)
 
 ---
 
@@ -40,7 +40,7 @@ This is a **single-page portfolio** website built using modern web technologies.
 
 ## 📧 Contact Me
 Feel free to reach out:  
-- **Portfolio**: [oscarcasallas.vercel.app](https://xxx-xxx.vercel.app/)  
+- **Portfolio**: [oscarcasallas.vercel.app](https://portafolio-oscarcasallas.vercel.app/)  
 - **Email**: oscarcasallas2004@gmail.com  
 - **LinkedIn**: [linkedin.com/in/oscarCasallas](https://www.linkedin.com/in/oscar--casallas/)  
 - **GitHub**: [github.com/oscarCasallas](https://github.com/OscarCasallas)  
