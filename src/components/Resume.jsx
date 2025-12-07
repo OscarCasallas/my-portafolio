@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useScrollAnimation, fadeUp, fadeLeft, fadeRight } from "../utils/useScrollAnimation";
 import AboutImage from "../assets/images/dp-bg-reg.jpg";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Resume = () => {
+    // Animaciones para los bloques principales
+    const titleAnim = useScrollAnimation(fadeUp);
+    const leftAnim = useScrollAnimation(fadeLeft);
+    const rightAnim = useScrollAnimation(fadeRight);
   const slides = [
     {
       title: "Experience - Customer Service",
@@ -79,47 +84,71 @@ const Resume = () => {
     {
       title: "Certifications - Developer",
       content: (
-        <ul className="list-disc pl-5 space-y-3">
-          <li>
-            <p className="font-semibold">Full Stack Empresarial - Spring Boot & Angular</p>
-            <p className="text-sm">2025</p>
-          </li>
-          <li>
-            <p className="font-semibold">AWS Academy Cloud Architecting</p>
-            <p className="text-sm">2025</p>
-          </li>
-          <li>
-            <p className="font-semibold">Google Cybersecurity Certificate</p>
-            <p className="text-sm">2025</p>
-          </li>
-          <li>
-            <p className="font-semibold">Google Data Analytics</p>
-            <p className="text-sm">2025</p>
-          </li>
-          <li>
-            <p className="font-semibold">Google AI Essentials</p>
-            <p className="text-sm">2025</p>
-          </li>
-          <li>
-            <p className="font-semibold">Google Prompting Essentials</p>
-            <p className="text-sm">2025</p>
-          </li>
-          <li>
-            <p className="font-semibold">Unity Essentials Pathway</p>
-            <p className="text-sm">2024</p>
-          </li>
-          <li>
-            <p className="font-semibold">AWS Academy Cloud Foundations</p>
-            <p className="text-sm">2024</p>
-          </li>
-          <li>
-            <p className="font-semibold">Innovation & Entrepreneurship - Coursera</p>
-            <p className="text-sm">2022</p>
-          </li>
-          <li>
-            <p className="font-semibold">MinTIC Programming Foundations</p>
-            <p className="text-sm">2021</p>
-          </li>
+        <ul className="space-y-4 list-disc pl-5">
+          {[
+            {
+              name: "Full Stack Empresarial - Spring Boot & Angular - DevSenior - 2025",
+              url: "https://profiles.badgeclaimed.com/user-7290/badges/urn:uuid:f57133f7-27d2-4f65-81f1-c7eb896dd392.html",
+            },
+            {
+              name: "AWS Academy Cloud Architecting - AWS - 2025",
+              url: "https://drive.google.com/file/d/147UgN1l01PLXVBDQdrEyjLcugy7OD-ao/view?usp=sharing",
+            },
+            {
+              name: "Google Cybersecurity Certificate - Coursera - 2025",
+              url: "https://drive.google.com/file/d/1pq999onX5b_8C06rXnG2RS9Zli1lcwkY/view?usp=sharing",
+            },
+            {
+              name: "Google AI Essentials - Coursera - 2025",
+              url: "https://drive.google.com/file/d/1KLa7Eq24diWl3DYwLvH5Vt-M3IOmvfKp/view?usp=sharing",
+            },
+            {
+              name: "Google Prompting Essentials - Coursera - 2025",
+              url: "https://drive.google.com/file/d/1k9hvjdCtWhjp1TdEa7U5Cg0SYbiTZUVx/view?usp=sharing",
+            },
+            {
+              name: "Unity Essentials Pathway - Unity - 2024",
+              url: "https://drive.google.com/file/d/1ikL6WP9UqQOgcNc3X6IXNgV2jWem4Jpx/view?usp=sharing",
+            },
+            {
+              name: "AWS Academy Cloud Foundations - AWS - 2024",
+              url: "https://drive.google.com/file/d/10P4xNll0yOx9mZFFDTXMzvc8UEyF7FZl/view?usp=sharing",
+            },
+            {
+              name: "Innovation & Entrepreneurship - Coursera - 2022",
+              url: "https://drive.google.com/file/d/1jsI6Ecz2bYhjxUtI_q4Z8pLhv9kz-OKo/view",
+            },
+            {
+              name: "MinTIC Programming Foundations - MinTIC - 2021",
+              url: "https://drive.google.com/file/d/14xTR0pGReEI1QFLkKc7xz8TdJ9gnbuN9/view?usp=sharing",
+            },
+          ].map((cert, i) => (
+            <li key={i}>
+              <div className="grid grid-cols-[1fr_auto] items-start gap-4">
+                {/* Texto alineado a la izquierda */}
+                <p className="font-semibold text-left leading-tight text-sm">
+                  {cert.name}
+                </p>
+
+                {/* Botón fijo */}
+                <a
+                  href={cert.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+              min-w-[130px] max-w-[130px]
+              h-[30px]
+              flex items-center justify-center
+              bg-blue-700 text-white text-sm
+              rounded hover:bg-secondary transition
+              text-center whitespace-nowrap
+            "
+                >
+                  Ver certificado
+                </a>
+              </div>
+            </li>
+          ))}
         </ul>
       ),
     },
@@ -134,30 +163,26 @@ const Resume = () => {
   return (
     <section id="resume" className="py-12 bg-light-gray">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-blue-900 mb-4 text-center">
+        <motion.h2 {...titleAnim.motionProps} ref={titleAnim.ref}
+          className="text-4xl font-bold text-blue-900 mb-4 text-center"
+        >
           Resume
-        </h2>
+        </motion.h2>
 
         <div className="flex flex-col md:flex-row justify-between items-start md:items-start gap-8">
           {/* Left Slider Column */}
-          <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-lg h-full flex flex-col justify-between relative overflow-hidden">
+          <motion.div {...leftAnim.motionProps} ref={leftAnim.ref}
+            className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-lg h-full flex flex-col justify-between relative overflow-hidden"
+          >
             <h3 className="text-3xl font-bold text-secondary mb-8 text-center">
               {slides[index].title}
             </h3>
 
             {/* Animated Content */}
             <div
-              className={`
+              className={` 
                 min-h-[420px] max-h-[420px] overflow-y-auto px-4 
                 scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-primary rounded
-                flex 
-                ${
-                  index === 0
-                    ? "items-center justify-center text-center" // Sección 1 centrada vertical + horizontal
-                    : index === 1
-                    ? "items-center justify-center text-center" // Sección 2 igual que antes
-                    : "items-center justify-center text-center" // Sección 3 centrada horizontal, NO vertical
-                }
               `}
             >
               <AnimatePresence mode="wait">
@@ -199,9 +224,9 @@ const Resume = () => {
                 <FaChevronRight />
               </button>
             </div>
-          </div>
+          </motion.div>
           {/* Right Fixed Column */}
-          <div
+          <motion.div {...rightAnim.motionProps} ref={rightAnim.ref}
             className="w-full md:w-1/2 text-center flex flex-col 
           items-center justify-center 
           bg-white p-6 rounded-lg shadow-lg min-h-[600px] h-full"
@@ -247,7 +272,7 @@ const Resume = () => {
                 <FaInstagram className="text-2xl text-[#E4405F] hover:text-secondary" />
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-scroll";
 
@@ -14,9 +15,14 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-6">
         {/* Logo */}
         <div className="text-2xl font-bold cursor-pointer">
-          <Link to="home" smooth={true} offset={-70} duration={500} 
-          className="hover:text-black
-                hover:drop-shadow-[0_0_6px_rgba(168,85,247,0.7)]">
+          <Link
+            to="home"
+            smooth={true}
+            offset={-70}
+            duration={500}
+            className="hover:text-black
+                hover:drop-shadow-[0_0_6px_rgba(168,85,247,0.7)]"
+          >
             Oscar Casallas
           </Link>
         </div>
@@ -33,115 +39,62 @@ const Navbar = () => {
         </div>
 
         {/* Menu Items */}
-        <div
-          className={`absolute top-16 left-0 w-full bg-blue-900 text-white lg:static lg:flex lg:items-center lg:space-x-8 lg:w-auto ${
-            isOpen ? "block" : "hidden"
-          }`}
-        >
-          <ul className="flex flex-col lg:flex-row lg:space-x-8 text-center">
+        {/* Desktop menu: siempre visible en lg+ */}
+        <div className="hidden lg:flex lg:items-center lg:space-x-8">
+          <ul className="flex flex-row lg:space-x-8 text-center">
             <li className="py-2 lg:py-0">
-              <Link
-                to="home"
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className="relative pb-1 cursor-pointer transition duration-300 
-                            after:content-[''] after:absolute after:left-0 after:bottom-0
-                            after:h-[4px] after:bg-white after:w-0
-                            after:transition-all after:duration-300 
-                            hover:after:w-full"
-                onClick={() => setIsOpen(false)}
-              >
-                Home
-              </Link>
+              <Link to="home" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold lg:font-normal after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-white after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>Home</Link>
             </li>
-
             <li className="py-2 lg:py-0">
-              <Link
-                to="about"
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className="relative pb-1 cursor-pointer transition duration-300 
-                            after:content-[''] after:absolute after:left-0 after:bottom-0
-                            after:h-[4px] after:bg-white after:w-0
-                            after:transition-all after:duration-300 
-                            hover:after:w-full"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
+              <Link to="about" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold lg:font-normal after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-white after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>About</Link>
             </li>
-
             <li className="py-2 lg:py-0">
-              <Link
-                to="skills"
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className="relative pb-1 cursor-pointer transition duration-300 
-                            after:content-[''] after:absolute after:left-0 after:bottom-0
-                            after:h-[4px] after:bg-white after:w-0
-                            after:transition-all after:duration-300 
-                            hover:after:w-full"
-                onClick={() => setIsOpen(false)}
-              >
-                Skills
-              </Link>
+              <Link to="skills" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold lg:font-normal after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-white after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>Skills</Link>
             </li>
-
             <li className="py-2 lg:py-0">
-              <Link
-                to="projects"
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className="relative pb-1 cursor-pointer transition duration-300 
-                            after:content-[''] after:absolute after:left-0 after:bottom-0
-                            after:h-[4px] after:bg-white after:w-0
-                            after:transition-all after:duration-300 
-                            hover:after:w-full"
-                onClick={() => setIsOpen(false)}
-              >
-                Projects
-              </Link>
+              <Link to="projects" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold lg:font-normal after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-white after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>Projects</Link>
             </li>
-
             <li className="py-2 lg:py-0">
-              <Link
-                to="resume"
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className="relative pb-1 cursor-pointer transition duration-300 
-                            after:content-[''] after:absolute after:left-0 after:bottom-0
-                            after:h-[4px] after:bg-white after:w-0
-                            after:transition-all after:duration-300 
-                            hover:after:w-full"
-                onClick={() => setIsOpen(false)}
-              >
-                Resume
-              </Link>
+              <Link to="resume" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold lg:font-normal after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-white after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>Resume</Link>
             </li>
-
             <li className="py-2 lg:py-0">
-              <Link
-                to="contact"
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className="relative pb-1 cursor-pointer transition duration-300 
-                            after:content-[''] after:absolute after:left-0 after:bottom-0
-                            after:h-[4px] after:bg-white after:w-0
-                            after:transition-all after:duration-300 
-                            hover:after:w-full"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </Link>
+              <Link to="contact" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold lg:font-normal after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-white after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>Contact</Link>
             </li>
           </ul>
         </div>
+        {/* Mobile menu: animado y solo visible en mobile */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              key="mobile-menu"
+              initial={{ opacity: 0, y: -40 }}
+              animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }}
+              exit={{ opacity: 0, y: -40, transition: { duration: 0.5, ease: "easeIn" } }}
+              className="absolute top-16 left-0 w-full bg-white text-blue-900 shadow-md flex flex-col lg:hidden"
+            >
+              <ul className="flex flex-col text-center">
+                <li className="py-2">
+                  <Link to="home" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-blue-900 after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>Home</Link>
+                </li>
+                <li className="py-2">
+                  <Link to="about" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-blue-900 after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>About</Link>
+                </li>
+                <li className="py-2">
+                  <Link to="skills" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-blue-900 after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>Skills</Link>
+                </li>
+                <li className="py-2">
+                  <Link to="projects" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-blue-900 after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>Projects</Link>
+                </li>
+                <li className="py-2">
+                  <Link to="resume" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-blue-900 after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>Resume</Link>
+                </li>
+                <li className="py-2">
+                  <Link to="contact" smooth={true} offset={-70} duration={500} className="relative pb-1 cursor-pointer transition duration-300 font-bold after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[4px] after:bg-blue-900 after:w-0 after:transition-all after:duration-300 hover:after:w-full" onClick={() => setIsOpen(false)}>Contact</Link>
+                </li>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );

@@ -1,9 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useScrollAnimation, backInLeft, zoomIn, bounceUp } from "../utils/useScrollAnimation";
 import emailjs from "@emailjs/browser";
 
 const EMAIL_REGEX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; // simple pero efectivo
 
 export default function Contact() {
+    // Animaciones profesionales desde utils
+    const titleAnim = useScrollAnimation(backInLeft);
+    const textAnim = useScrollAnimation(zoomIn);
+    const formAnim = useScrollAnimation(bounceUp);
   const formRef = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -140,15 +146,23 @@ export default function Contact() {
     <section id="contact" className="py-10 bg-light-gray">
       <div className="container mx-auto px-2">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-blue-900 mb-6">Contact Me</h2>
-          <p className="text-lg text-secondary">
+          <motion.h2 {...titleAnim.motionProps} ref={titleAnim.ref}
+            className="text-4xl font-bold text-blue-900 mb-6"
+          >
+            Contact Me
+          </motion.h2>
+          <motion.p {...textAnim.motionProps} ref={textAnim.ref}
+            className="text-lg text-secondary"
+          >
             Feel free to reach out for any inquiries or collaboration
             opportunities!
-          </p>
+          </motion.p>
         </div>
 
         <div className="flex justify-center">
-          <div className="w-full md:w-1/2 bg-white p-2 rounded-lg shadow-lg">
+          <motion.div {...formAnim.motionProps} ref={formAnim.ref}
+            className="w-full md:w-1/2 bg-white p-2 rounded-lg shadow-lg"
+          >
             <form onSubmit={handleSubmit} ref={formRef} noValidate>
               {/* NAME */}
               <div className="mb-4">
@@ -297,7 +311,7 @@ export default function Contact() {
                 </p>
               )}
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

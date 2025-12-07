@@ -1,83 +1,110 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import HomeImage from "../assets/images/dp-bg-reg.jpg";
+import { motion } from "framer-motion";
+import { useScrollAnimation, fadeUp, fadeLeft, fadeRight } from "../utils/useScrollAnimation";
 
 const rotatingTitles = [
   "Software Developer",
   "Systems Engineer",
   "Full-Stack Developer",
   "Web Developer",
-  "Tech Enthusiast"
+  "Tech Enthusiast",
 ];
 
 const HeroSection = () => {
-  const [index, setIndex] = useState(0);
+  const nameAnim = useScrollAnimation(fadeUp);
+  const subtitleAnim = useScrollAnimation(fadeUp);
+  const descAnim = useScrollAnimation(fadeLeft);
+  const buttonAnim = useScrollAnimation(fadeUp);
+  const imageAnim = useScrollAnimation(fadeRight);
+
+
+
+
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopIndex, setLoopIndex] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(120);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % rotatingTitles.length);
-    }, 2500); // cambia cada 2.5 segundos
+    const current = rotatingTitles[loopIndex % rotatingTitles.length];
 
-    return () => clearInterval(interval);
-  }, []);
+    const handleTyping = () => {
+      if (!isDeleting) {
+        setDisplayText(current.substring(0, displayText.length + 1));
+        setTypingSpeed(120);
+      } else {
+        setDisplayText(current.substring(0, displayText.length - 1));
+        setTypingSpeed(80);
+      }
+
+      if (!isDeleting && displayText === current) {
+        setTimeout(() => setIsDeleting(true), 900);
+      }
+
+      if (isDeleting && displayText === "") {
+        setIsDeleting(false);
+        setLoopIndex(loopIndex + 1);
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting]);
 
   return (
     <section className="bg-[#F4F4F4] py-10 md:py-24" id="home">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-center gap-0 md:gap-8">
-
           {/* Left Section */}
           <div className="md:w-1/2 text-center md:text-left">
-
             {/* NAME */}
-            <h1 className="text-6xl font-extrabold text-secondary mb-4 md:mt-0 mt-6 leading-tight">
+            <motion.h1 {...nameAnim.motionProps} ref={nameAnim.ref}
+              className="text-5xl md:text-6xl font-extrabold text-secondary mb-4 mt-20 md:mt-0 leading-tight"
+            >
               Oscar Casallas
-            </h1>
+            </motion.h1>
 
             {/* Rotating Subtitle */}
-            <div className="h-10 mb-4 font-semibold text-[#606060] text-2xl">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  {rotatingTitles[index]}
-                </motion.p>
-              </AnimatePresence>
-            </div>
+            <motion.div {...subtitleAnim.motionProps} ref={subtitleAnim.ref}
+              className="h-10 mb-4 font-semibold text-[#606060] text-2xl flex justify-center md:justify-start"
+            >
+              <span className="typing-text">
+                {displayText}
+                <span className="cursor">|</span>
+              </span>
+            </motion.div>
 
             {/* Description */}
-            <p className="text-secondary mb-6 text-justify text-lg">
-              Passionate about web development, mobile applications, 
-              and artificial intelligence. I enjoy creating solutions 
-              that solve real-world problems and constantly learning 
-              new technologies.
-            </p>
+            <motion.p {...descAnim.motionProps} ref={descAnim.ref}
+              className="text-secondary mb-6 text-justify text-lg"
+            >
+              Passionate about web development, mobile applications, and
+              artificial intelligence. I enjoy creating solutions that solve
+              real-world problems and constantly learning new technologies.
+            </motion.p>
 
             {/* Button with Animated Border */}
-            <a
+            <motion.a {...buttonAnim.motionProps} ref={buttonAnim.ref}
               href="/OscarCasallas-CV-dev.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="animated-border-btn inline-block px-6 py-3 bg-blue-900 text-white rounded-lg shadow-md hover:bg-[#F4F4F4] hover:text-blue-900 hover:border-blue-900 border transition-all relative overflow-hidden"
             >
               Download CV
-            </a>
-
+            </motion.a>
           </div>
 
           {/* Right Section - Image */}
-          <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
+          <motion.div {...imageAnim.motionProps} ref={imageAnim.ref}
+            className="md:w-1/2 mt-8 md:mt-0 flex justify-center"
+          >
             <img
               src={HomeImage}
               alt="Oscar Casallas - Software Developer"
               className="w-full max-w-sm md:max-w-md h-auto rounded-lg shadow-lg object-cover"
             />
-          </div>
-
+          </motion.div>
         </div>
       </div>
 
@@ -119,8 +146,24 @@ const HeroSection = () => {
           50%  { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
-      `}</style>
+        
+          .cursor {
+          display: inline-block;
+          margin-left: 2px;
+          color: #0072ff;
+          animation: blink 0.7s infinite;
+        }
 
+        @keyframes blink {
+          0%, 50% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+
+        .typing-text {
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      `}</style>
     </section>
   );
 };

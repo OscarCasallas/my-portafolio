@@ -1,27 +1,40 @@
 import React from "react";
 import AboutImage from "../assets/images/yorascacielos.jpg";
+import { motion } from "framer-motion";
+import { useScrollAnimation, fadeUp, fadeLeft, fadeRight } from "../utils/useScrollAnimation";
 
 const About = () => {
+  // Animaciones para cada bloque
+  const titleAnim = useScrollAnimation(fadeRight);
+  const imageAnim = useScrollAnimation(fadeUp);
+  const textAnim = useScrollAnimation(fadeLeft);
+
   return (
     <section id="about" className="py-8 bg-[#FAFAFA]">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-blue-900 mb-6 text-center">
+        <motion.h1 {...titleAnim.motionProps} ref={titleAnim.ref}
+          className="text-4xl font-bold text-blue-900 mb-6 text-center"
+        >
           About Me
-        </h1>
+        </motion.h1>
         <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-8 md:gap-0">
           {/* Left Column - Image */}
-          <div className="md:w-1/3 mb-8 md:mb-0 flex justify-center">
+          <motion.div {...imageAnim.motionProps} ref={imageAnim.ref}
+            className="md:w-1/3 mb-8 md:mb-0 flex justify-center"
+          >
             <div className="rounded-full overflow-hidden shadow-xl">
               <img
                 src={AboutImage}
-                alt="Saam Sheron - MERN Stack Developer"
+                alt="Oscar Casallas - Systems Engineer"
                 className="w-48 rounded-full h-48 object-cover border-4 border-blue-900"
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column - Content */}
-          <div className="md:w-2/3 md:px-8">
+          <motion.div {...textAnim.motionProps} ref={textAnim.ref}
+            className="md:w-2/3 md:px-8"
+          >
             <div className="text-[#333333] text-xl leading-relaxed md:text-2xl">
               <p className="mb-4 text-justify">
                 Hi, I'm <strong>Oscar Casallas</strong>, I am a final-year{" "}
@@ -47,7 +60,7 @@ const About = () => {
                 real-world projects in the world of development and technology.
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

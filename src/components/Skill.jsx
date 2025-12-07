@@ -1,4 +1,6 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { useScrollAnimation, fadeUp, fadeRight, fadeLeft } from "../utils/useScrollAnimation";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -150,16 +152,24 @@ const topRow = skills.slice(0, 9);
 const bottomRow = skills.slice(9, 18);
 
 const Skill = () => {
+  // Animaciones para los bloques principales
+  const titleAnim = useScrollAnimation(fadeUp);
+  const topRowAnim = useScrollAnimation(fadeRight);
+  const bottomRowAnim = useScrollAnimation(fadeLeft);
+
   return (
     <section id="skills" className="py-20 overflow-hidden">
-      <h2 className="text-4xl font-bold text-center mb-14 text-blue-900">
+      <motion.h2 {...titleAnim.motionProps} ref={titleAnim.ref}
+        className="text-4xl font-bold text-center mb-14 text-blue-900"
+      >
         My Skills
-      </h2>
+      </motion.h2>
 
       {/* Carrusel 1 (izquierda -> derecha visual) */}
-      <div className="relative w-full overflow-hidden mb-10">
+      <motion.div {...topRowAnim.motionProps} ref={topRowAnim.ref}
+        className="relative w-full overflow-hidden mb-10"
+      >
         <div className="flex gap-10 whitespace-nowrap track track-left">
-          {/* duplicamos el array para crear el loop perfecto */}
           {[...topRow, ...topRow].map((skill, index) => (
             <div
               key={index}
@@ -171,10 +181,12 @@ const Skill = () => {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Carrusel 2 (derecha -> izquierda visual) */}
-      <div className="relative w-full overflow-hidden">
+      <motion.div {...bottomRowAnim.motionProps} ref={bottomRowAnim.ref}
+        className="relative w-full overflow-hidden"
+      >
         <div className="flex gap-10 whitespace-nowrap track track-right">
           {[...bottomRow, ...bottomRow].map((skill, index) => (
             <div
@@ -187,7 +199,7 @@ const Skill = () => {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* CSS in-component: puedes mover esto a index.css si prefieres */}
       <style>{`

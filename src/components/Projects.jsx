@@ -46,6 +46,9 @@ import React, { useState, useEffect, useRef } from "react";
 import getImgUrl from "../utils/getImgUrl";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { zoomIn, bounceUp } from "../utils/useScrollAnimation";
+  // Animaciones para el título y el slider
+  // Título: zoomIn, Slider: bounceUp
 
 const projects = [
   {
@@ -121,12 +124,20 @@ const Projects = () => {
   return (
     <section id="projects" className="py-16 bg-lightgray">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-12 text-blue-900 tracking-wide">
+        <motion.h2
+          initial={zoomIn.hidden}
+          whileInView={zoomIn.visible}
+          viewport={{ once: true, margin: "-50px" }}
+          className="text-4xl font-bold text-center mb-12 text-blue-900 tracking-wide"
+        >
           My Projects
-        </h2>
+        </motion.h2>
 
         {/* Carousel Container */}
-        <div
+        <motion.div
+          initial={bounceUp.hidden}
+          whileInView={bounceUp.visible}
+          viewport={{ once: true, margin: "-50px" }}
           className="relative flex items-center justify-center"
           style={{ minHeight: "520px" }}
         >
@@ -207,7 +218,7 @@ const Projects = () => {
           >
             <FaChevronRight />
           </button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
